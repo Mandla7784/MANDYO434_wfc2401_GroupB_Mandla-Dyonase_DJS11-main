@@ -12,7 +12,9 @@ export default function Header() {
       <ul>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? "active-link" : "")}
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
             exact
             to="/"
             activeClassName="active-link"
@@ -25,7 +27,9 @@ export default function Header() {
           <NavLink
             to="/episodes"
             activeClassName="active-link"
-            className={({ isActive }) => (isActive ? "active-link" : "")}
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
           >
             Episodes
           </NavLink>
@@ -33,10 +37,45 @@ export default function Header() {
         <li>
           <NavLink
             to="/about"
-            className={({ isActive }) => (isActive ? "active-link" : "")}
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
             activeClassName="active-link"
           >
             About
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
+            activeClassName="active-link"
+          >
+            <i className="fa-solid fa-phone"></i>
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/search"
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
+            activeClassName="active-link"
+          ></NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/settings"
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
+          >
+            <i className="fa-solid fa-gear"></i>
           </NavLink>
         </li>
       </ul>
