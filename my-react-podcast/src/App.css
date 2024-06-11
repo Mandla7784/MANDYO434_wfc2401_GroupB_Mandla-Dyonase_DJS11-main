@@ -81,3 +81,56 @@ body {
 .text-white {
   color: var(--text-color);
 }
+
+/*
+Home Display styles
+*/
+
+.home {
+  display: flex;
+
+  justify-content: space-between;
+
+  height: 100vh;
+}
+.home-hero {
+  right: 0;
+  position: absolute;
+  top: 200px;
+  width: 80%;
+  height: 100%;
+}
+
+/*
+Side bar styles 
+*/
+.sidebar {
+  background-color: var(--back-color);
+  left: 0;
+  position: absolute;
+  top: 90px;
+  gap: 1rem;
+  width: 20%;
+  height: 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.sidebar h4 {
+  font-size: 1.5rem;
+  margin: 0;
+}
