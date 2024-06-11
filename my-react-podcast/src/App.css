@@ -1,6 +1,11 @@
 :root {
   --max-width: 1100px;
   --primary-color: ;
+  --back-color: #070303;
+  --btn-color: #ff9d2e;
+  --frint-color: #231715;
+  --text-color: #e9e8e7;
+  --glass-color: #544840;
 }
 
 * {
