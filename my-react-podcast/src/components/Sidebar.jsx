@@ -8,7 +8,10 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <h4>
-        Cold-cast- <span>Friday</span>
+        New{" "}
+        <span className="logo" style={{ color: "#ff9d2e" }}>
+          Talk
+        </span>
       </h4>
       <ul>
         <li>

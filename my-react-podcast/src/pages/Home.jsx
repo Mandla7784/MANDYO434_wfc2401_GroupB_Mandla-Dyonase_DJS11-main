@@ -5,7 +5,7 @@ export default function Home() {
     <div className="home">
       <div className="text-align-center home-hero">
         Home
-        <h1>Listen to New PODS </h1>
+        <h1>Listen to New PODS</h1>
       </div>
     </div>
   );
