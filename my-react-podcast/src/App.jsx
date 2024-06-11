@@ -1,7 +1,6 @@
 // import React from "react";
-
-// import { useState } from "react";
-// import reactLogo from "/public/pocasticin.png";
+import "./styles/input.css";
+import "./styles/bootstrap.css";
 
 import "./App.css";
 
