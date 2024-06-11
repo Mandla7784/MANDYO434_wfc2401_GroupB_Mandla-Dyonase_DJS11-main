@@ -24,6 +24,15 @@ export default function Header() {
           </NavLink>
         </li>
       </ul>
+
+      <div>
+        <NavLink to="/log-in" activeClassName="active-link">
+          Log In
+        </NavLink>
+        <NavLink to="/sign-up" activeClassName="active-link">
+          Sign Up
+        </NavLink>
+      </div>
     </header>
   );
 }
