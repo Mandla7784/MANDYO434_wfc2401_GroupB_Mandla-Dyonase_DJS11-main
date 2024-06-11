@@ -92,6 +92,7 @@ Home Display styles
   justify-content: space-between;
 
   height: 100vh;
+  background-color: var(--back-color);
 }
 .home-hero {
   right: 0;
@@ -99,6 +100,7 @@ Home Display styles
   top: 200px;
   width: 80%;
   height: 100%;
+  padding-left: 40px;
 }
 
 /*
@@ -112,8 +114,12 @@ Side bar styles
   gap: 1rem;
   width: 20%;
   height: 100%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(76, 80, 76) 0px 0px 0px 6px,
+    rgb(27, 27, 25) 0px 0px 0px 9px, rgb(155, 151, 149) 0px 0px 0px 12px,
+    rgb(255, 85, 85) 0px 0px 0px 15px;
+  box-shadow: rgba(20, 239, 255, 0.4) 5px 5px, rgba(26, 134, 197, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(6, 138, 247, 0.1) 20px 20px,
+    rgba(10, 162, 233, 0.05) 25px 25px;
   border-radius: 5px;
 
   display: flex;
@@ -144,4 +150,20 @@ Side bar styles
 .image_title {
   width: 20px;
   height: 20px;
+}
+
+.episode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: var(--glass-color);
+}
+.episode-card img {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
 }
