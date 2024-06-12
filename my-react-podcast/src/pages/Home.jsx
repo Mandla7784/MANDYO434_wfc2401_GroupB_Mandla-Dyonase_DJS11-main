@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
   const [episodes, setEpisodes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(`https://podcast-api.netlify.app/`)
       .then((res) => res.json())
-      .then((data) => setEpisodes(data));
-  });
+      .then((data) => {
+        setEpisodes(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const episodesList = episodes.map((episode) => (
     <li className="episode-card" key={episode.id}>
       <img src={episode.image} alt={episode.title} />
-      <a href={episode.url} target="_blank" rel="noreferrer">
+      <a
+        className="episode-title"
+        href={episode.url}
+        target="_blank"
+        rel="noreferrer"
+      >
         {episode.title}
       </a>
-      <p>{episode.description}</p>
+      <p>{episode.description.substring(0, 250)}</p>
 
       <br />
       <br />
     </li>
   ));
+
   return (
     <div className="home">
       <div className="text-align-center home-hero">
@@ -33,7 +47,11 @@ export default function Home() {
           <i className="fa-solid fa-circle-play"></i> Play your favorite podcast
         </p>
         <h2>Podcasts</h2>
-        <ul className="episode-list">{episodesList}</ul>
+        {isLoading ? (
+          <p className="loading">Loading...</p>
+        ) : (
+          <ul className="episode-list">{episodesList}</ul>
+        )}
       </div>
     </div>
   );
