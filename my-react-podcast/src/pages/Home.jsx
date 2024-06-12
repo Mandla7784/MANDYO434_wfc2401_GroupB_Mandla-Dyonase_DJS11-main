@@ -10,12 +10,13 @@ export default function Home() {
   });
 
   const episodesList = episodes.map((episode) => (
-    <li key={episode.id}>
+    <li className="episode-card" key={episode.id}>
+      <img src={episode.image} alt={episode.title} />
       <a href={episode.url} target="_blank" rel="noreferrer">
         {episode.title}
       </a>
       <p>{episode.description}</p>
-      <img src={episode.image} alt={episode.title} />
+
       <br />
       <br />
     </li>
@@ -32,7 +33,7 @@ export default function Home() {
           <i className="fa-solid fa-circle-play"></i> Play your favorite podcast
         </p>
         <h2>Podcasts</h2>
-        <ul className="episode-card">{episodesList}</ul>
+        <ul className="episode-list">{episodesList}</ul>
       </div>
     </div>
   );

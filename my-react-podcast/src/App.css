@@ -154,16 +154,18 @@ Side bar styles
 
 .episode-card {
   display: flex;
-  flex-direction: column;
+
   align-items: center;
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
   border-radius: 5px;
   background-color: var(--glass-color);
+  margin-bottom: 1rem;
+  height: 100px;
 }
 .episode-card img {
-  width: 300px;
-  height: 300px;
+  width: 80px;
+  height: 80px;
   border-radius: 5px;
 }
