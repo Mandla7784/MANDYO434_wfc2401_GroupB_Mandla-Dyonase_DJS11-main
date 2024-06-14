@@ -11,14 +11,16 @@
   --font-family: "Roboto", sans-serif;
   --transition: all 0.2s ease-in-out;
 }
-
+.bg-warn {
+  background-color: var(--btn-color);
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   transition: var(--transition);
   color: --var(--text-color);
-  text-decoration: none;
+  text-decoration: none !important;
   font-family: var(--font-family);
 }
 
@@ -68,8 +70,8 @@
 }
 
 body {
-  background-color: var(--back-color);
-  color: var(--text-color);
+  background-color: var(--back-color) !important;
+  color: var(--text-color) !important;
 }
 
 .logo-image {

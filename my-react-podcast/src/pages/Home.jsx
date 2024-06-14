@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 export default function Home() {
   const [episodes, setEpisodes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchepisode, setSearchepisode] = useState("");
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/`)
@@ -40,7 +41,16 @@ export default function Home() {
 
   return (
     <div className="home">
-      <div className="text-align-center home-hero">
+      <div className="text-align-center home-hero ">
+        {/* <div className="bg-warning  w-50">
+          <input
+            className="   form-control bg-warn border-0 "
+            type="text"
+            placeholder="Search episodes...."
+            value={searchepisode}
+            onChange={(e) => setSearchepisode(e.target.value)}
+          />
+        </div> */}
         Home
         <h1>Listen to New PODS</h1>
         <p>

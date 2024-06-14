@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import "tailwindcss/tailwind.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 //imporing from  Pages
 

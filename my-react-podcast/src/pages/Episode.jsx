@@ -36,7 +36,6 @@ export default function Episode() {
       ) : (
         episode && (
           <div className="episode-card-div" key={episode.id}>
-            <img src={episode.image} alt={episode.title} />
             <a
               className="episode-title"
               href={episode.url}
@@ -45,6 +44,7 @@ export default function Episode() {
             >
               {episode.title}
             </a>
+
             <audio
               controls
               autoPlay={isPlaying}
@@ -53,9 +53,13 @@ export default function Episode() {
             >
               Your browser does not support the audio element.
             </audio>
-            <button onClick={handlePlayPause}>
-              {isPlaying ? "Pause" : "Play"}
-            </button>
+            <button onClick={handlePlayPause}>{isPlaying ? "⏸️" : "▶️"}</button>
+
+            <div>
+              <p>{episode.description}</p>
+              <p>{episode.seasons}</p>
+              <p>{episode.date}</p>
+            </div>
           </div>
         )
       )}
