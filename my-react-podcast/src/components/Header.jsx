@@ -84,9 +84,13 @@ export default function Header() {
         <NavLink to="/log-in" activeClassName="active-link">
           {/* <i className="fa-solid fa-right-to-bracket"></i> */}
         </NavLink>
-        <NavLink to="/sign-up" activeClassName="active-link">
+        <NavLink
+          style={{ color: "white" }}
+          to="/sign-up"
+          activeClassName="active-link"
+        >
           Sign Up
-          <i className="fa-solid fa-user  text-yellow-500"></i>
+          <i className="fa-solid fa-user ml-2"></i>
         </NavLink>
       </div>
     </header>

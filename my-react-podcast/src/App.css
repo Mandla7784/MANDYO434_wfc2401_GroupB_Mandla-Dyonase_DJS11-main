@@ -22,6 +22,7 @@
   color: --var(--text-color);
   text-decoration: none !important;
   font-family: var(--font-family);
+  color: var(--text-color);
 }
 
 /*header styles*/
@@ -35,8 +36,11 @@
   /* max-width: var(--max-width); */
   margin: 0 auto;
   width: 100%;
-
+  top: 0;
+  position: sticky;
   margin-bottom: 1rem;
+  background-color: var(--back-color);
+  z-index: 999;
 }
 
 .header h1 {
@@ -171,6 +175,7 @@ Side bar styles
   background-color: var(--glass-color);
   margin-bottom: 1rem;
   height: 100px;
+  color: var(--text-color);
 }
 .episode-card:hover {
   cursor: pointer;
