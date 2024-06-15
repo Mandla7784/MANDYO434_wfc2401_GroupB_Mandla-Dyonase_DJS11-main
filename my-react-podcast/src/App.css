@@ -223,3 +223,26 @@ Side bar styles
 
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+/*episode card list atyles */
+
+.episode-card-list {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+
+  color: var(--text-color);
+  background-color: white;
+}
+.episode-card-list img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+}

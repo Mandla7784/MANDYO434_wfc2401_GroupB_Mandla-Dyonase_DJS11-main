@@ -17,7 +17,6 @@ import History from "./pages/History";
 import PlayLists from "./pages/Playlistist";
 import Sidebar from "./components/Sidebar";
 import Episode from "./pages/Episode";
-import { Outlet } from "react-router-dom";
 
 function App() {
   return (

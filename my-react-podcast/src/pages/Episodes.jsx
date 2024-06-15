@@ -21,7 +21,7 @@ export default function Episodes() {
 
   const episodesList = episodes.map((episode) => (
     <NavLink key={episode.id} to={`/episode/${episode.id}`}>
-      <li className="episode-card" key={episode.id}>
+      <li className="episode-card-list" key={episode.id}>
         <img src={episode.image} alt={episode.title} />
         <a
           className="episode-title"
@@ -31,9 +31,61 @@ export default function Episodes() {
         >
           {episode.title}
         </a>
+        <p>genres:{episode.genres}</p>
+        <p>{episode.description.substring(0, 300)}...</p>
+        <h3>Seasons:{episode.seasons}</h3>
+        <h5>Episodes:{episode.id}</h5>
+        <button className="btn btn-warning">Add to favorites</button>
       </li>
     </NavLink>
   ));
 
-  return <div>Episodes</div>;
+  const filteredEpisodes = episodes.filter((episode) =>
+    episode.title.toLowerCase().includes(searchepisode.toLowerCase())
+  );
+
+  const episodesListFiltered = filteredEpisodes.map((episode) => (
+    <NavLink key={episode.id} to={`/episode/${episode.id}`}>
+      <li className="episode-card-list" key={episode.id}>
+        <img src={episode.image} alt={episode.title} />
+        <a
+          className="episode-title"
+          href={episode.url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {episode.title}
+        </a>
+        <p>genres:{episode.genres}</p>
+        <p>{episode.description.substring(0, 300)}...</p>
+        <h3>Seasons:{episode.seasons}</h3>
+        <h5>Episodes:{episode.id}</h5>
+        <button className="btn btn-warning">Add to favorites</button>
+      </li>
+    </NavLink>
+  ));
+  return (
+    <div className="episodes-page container p-5 mt-5 text-align-center  ">
+      <h1>Episodes</h1>
+      <div className="d-flex text-align-center ">
+        <input
+          className="form-control w-50 rounded-3 "
+          type="text"
+          placeholder="Search episodes"
+          value={searchepisode}
+          onChange={(e) => setSearchepisode(e.target.value)}
+        />
+        <button className="btn btn-warning">Search</button>
+      </div>
+      <ul className="episodes-list gap-3 w-100 bg-danger d-flex flex-wrap justyfy-content-center">
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : episodesListFiltered.length > 0 ? (
+          episodesListFiltered
+        ) : (
+          episodesList
+        )}
+      </ul>
+    </div>
+  );
 }
