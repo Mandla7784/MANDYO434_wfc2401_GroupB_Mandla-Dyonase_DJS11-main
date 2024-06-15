@@ -10,7 +10,11 @@ export default function Home() {
     fetch(`https://podcast-api.netlify.app/`)
       .then((res) => res.json())
       .then((data) => {
-        setEpisodes(data);
+        const sortedEpisodes = data.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
+
+        setEpisodes(sortedEpisodes);
         setIsLoading(false);
       })
       .catch((error) => {
