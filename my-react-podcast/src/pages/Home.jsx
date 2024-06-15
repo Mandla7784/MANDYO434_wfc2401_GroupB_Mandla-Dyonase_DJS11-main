@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import Episode from "./pages/Episode";
 import { NavLink } from "react-router-dom";
+
 export default function Home() {
   const [episodes, setEpisodes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -10,10 +10,12 @@ export default function Home() {
     fetch(`https://podcast-api.netlify.app/`)
       .then((res) => res.json())
       .then((data) => {
+        // Simple sorting by title in alphabetical order
         const sortedEpisodes = data.sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
+          if (a.title < b.title) return -1;
+          if (a.title > b.title) return 1;
+          return 0;
         });
-
         setEpisodes(sortedEpisodes);
         setIsLoading(false);
       })
@@ -36,7 +38,6 @@ export default function Home() {
           {episode.title}
         </a>
         <p>{episode.description.substring(0, 250)}</p>
-
         <br />
         <br />
       </li>
@@ -45,16 +46,7 @@ export default function Home() {
 
   return (
     <div className="home">
-      <div className="text-align-center home-hero ">
-        {/* <div className="bg-warning  w-50">
-          <input
-            className="   form-control bg-warn border-0 "
-            type="text"
-            placeholder="Search episodes...."
-            value={searchepisode}
-            onChange={(e) => setSearchepisode(e.target.value)}
-          />
-        </div> */}
+      <div className="text-align-center home-hero">
         Home
         <h1>Listen to New PODS</h1>
         <p>
