@@ -5,8 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo, faHistory, faList } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
+  const closeSidebar = () => {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "none";
+  };
+
   return (
-    <div className="sidebar">
+    <div className="sidebar ">
       <h4>
         New{" "}
         <span className="logo" style={{ color: "#ff9d2e" }}>
@@ -30,6 +35,10 @@ const Sidebar = () => {
           </NavLink>
         </li>
       </ul>
+      <span onClick={closeSidebar} className="close-btn ">
+        {" "}
+        <i className="fa-solid fa-xmark"></i>
+      </span>
     </div>
   );
 };

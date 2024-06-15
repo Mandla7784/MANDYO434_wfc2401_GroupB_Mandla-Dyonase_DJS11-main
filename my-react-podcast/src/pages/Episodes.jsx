@@ -46,7 +46,7 @@ export default function Episodes() {
 
   const episodesListFiltered = filteredEpisodes.map((episode) => (
     <NavLink key={episode.id} to={`/episode/${episode.id}`}>
-      <li className="episode-card-list" key={episode.id}>
+      <li className="episode-card-list mt-5" key={episode.id}>
         <img src={episode.image} alt={episode.title} />
         <a
           className="episode-title"
@@ -67,9 +67,9 @@ export default function Episodes() {
   return (
     <div className="episodes-page container p-5 mt-5 text-align-center  ">
       <h1>Episodes</h1>
-      <div className="d-flex text-align-center ">
+      <div className="d-flex gap-2 text-align-center ">
         <input
-          className="form-control w-50 rounded-3 "
+          className="form-control w-50 rounded-3 bg-transparent text-white "
           type="text"
           placeholder="Search episodes"
           value={searchepisode}
@@ -77,7 +77,10 @@ export default function Episodes() {
         />
         <button className="btn btn-warning">Search</button>
       </div>
-      <ul className="episodes-list gap-3 w-100 bg-danger d-flex flex-wrap justyfy-content-center">
+      <ul
+        style={{ marginTop: "100px" }}
+        className="episodes-list gap-3 w-100  d-flex flex-wrap justyfy-content-center"
+      >
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : episodesListFiltered.length > 0 ? (
