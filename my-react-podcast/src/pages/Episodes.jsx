@@ -58,7 +58,21 @@ export default function Episodes() {
           value={searchepisode}
           onChange={(e) => setSearchepisode(e.target.value)}
         />
-        <button className="btn btn-warning ms-2">Search</button>
+        <button className="btn btn-warning ms-2">Search by genres</button>
+        <select name="" id="">
+          <option value="">Genres</option>
+          <option value="Action">Action</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Horror">Horror</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Romance">Romance</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Thriller">Thriller</option>
+          <option value="War">War</option>
+          <option value="Western">Western</option>
+        </select>
       </div>
       <ul className="episodes-list d-flex flex-wrap justify-content-center">
         {/* if Episodes  not rendered yet , the user will  wait for the loadon */}
