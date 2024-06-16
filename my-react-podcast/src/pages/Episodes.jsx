@@ -61,11 +61,13 @@ export default function Episodes() {
         <button className="btn btn-warning ms-2">Search</button>
       </div>
       <ul className="episodes-list d-flex flex-wrap justify-content-center">
+        {/* if Episodes  not rendered yet , the user will  wait for the loadon */}
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : episodesList.length > 0 ? (
           episodesList
         ) : (
+          // if no episodes in the data base searched by the user , the user will get a message
           <div>No episodes found</div>
         )}
       </ul>
