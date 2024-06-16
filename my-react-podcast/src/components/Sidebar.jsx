@@ -21,7 +21,7 @@ const Sidebar = () => {
       <ul>
         <li>
           <NavLink to="/home">
-            <FontAwesomeIcon icon={faStar} /> Favourates
+            <FontAwesomeIcon icon={faStar} /> Favorites
           </NavLink>
         </li>
         <li>

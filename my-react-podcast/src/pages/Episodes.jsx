@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap"; // Import Modal and Button from React Bootstrap
 import "./Episodes.css"; // Import a custom CSS file for additional styling
 
 export default function Episodes() {
   const [episodes, setEpisodes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchepisode, setSearchepisode] = useState("");
+  const [favorites, setFavorites] = useState([]);
+  const [selectedEpisode, setSelectedEpisode] = useState(null); // State to store the selected episode for modal
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/`)
@@ -20,13 +23,33 @@ export default function Episodes() {
       });
   }, []);
 
+  const toggleFavorite = (episodeId) => {
+    if (favorites.includes(episodeId)) {
+      setFavorites(favorites.filter((id) => id !== episodeId));
+    } else {
+      setFavorites([...favorites, episodeId]);
+    }
+  };
+
+  const handleEpisodeClick = (episode) => {
+    setSelectedEpisode(episode);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedEpisode(null);
+  };
+
   const filteredEpisodes = episodes.filter((episode) =>
     episode.title.toLowerCase().includes(searchepisode.toLowerCase())
   );
 
   const episodesList = filteredEpisodes.map((episode) => (
-    <li className="episode-card-list card m-3 p-2" key={episode.id}>
-      <NavLink to={`/episode/${episode.id}`}>
+    <li
+      className="episode-card-list card m-3 p-2"
+      key={episode.id}
+      onClick={() => handleEpisodeClick(episode)} // Handle click to show modal
+    >
+      <NavLink to={`/episodes/${episode.id}`}>
         <img className="card-img-top" src={episode.image} alt={episode.title} />
         <div className="card-body">
           <h5 className="card-title">{episode.title}</h5>
@@ -41,7 +64,17 @@ export default function Episodes() {
           <p className="card-text">
             <small className="text-muted">Seasons: {episode.seasons}</small>
           </p>
-          <button className="btn btn-warning">Add to favorites</button>
+          <button
+            className="btn btn-warning"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleFavorite(episode.id);
+            }}
+          >
+            {favorites.includes(episode.id)
+              ? "Remove from favorites"
+              : "Add to favorites"}
+          </button>
         </div>
       </NavLink>
     </li>
@@ -58,33 +91,48 @@ export default function Episodes() {
           value={searchepisode}
           onChange={(e) => setSearchepisode(e.target.value)}
         />
-        <button className="btn btn-warning ms-2">Search by genres</button>
-        <select name="" id="">
-          <option value="">Genres</option>
-          <option value="Action">Action</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Horror">Horror</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Romance">Romance</option>
-          <option value="Science Fiction">Science Fiction</option>
-          <option value="Thriller">Thriller</option>
-          <option value="War">War</option>
-          <option value="Western">Western</option>
-        </select>
+        <button className="btn btn-warning ms-2">Search</button>
       </div>
       <ul className="episodes-list d-flex flex-wrap justify-content-center">
-        {/* if Episodes  not rendered yet , the user will  wait for the loadon */}
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : episodesList.length > 0 ? (
           episodesList
         ) : (
-          // if no episodes in the data base searched by the user , the user will get a message
           <div>No episodes found</div>
         )}
       </ul>
+
+      {/* Modal for displaying episode details */}
+      <Modal show={selectedEpisode !== null} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedEpisode?.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img
+            className="card-img-top"
+            src={selectedEpisode?.image}
+            alt={selectedEpisode?.title}
+          />
+          <p>{selectedEpisode?.description}</p>
+          <p>
+            <small className="text-muted">
+              Genres: {selectedEpisode?.genres.join(", ")}
+            </small>
+          </p>
+          <p>
+            <small className="text-muted">
+              Seasons: {selectedEpisode?.seasons}
+            </small>
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="warning">Download</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
