@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import "./Episodes.css"; // Import a custom CSS file for additional styling
 
 export default function Episodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -19,74 +20,53 @@ export default function Episodes() {
       });
   }, []);
 
-  const episodesList = episodes.map((episode) => (
-    <NavLink key={episode.id} to={`/episode/${episode.id}`}>
-      <li className="episode-card-list" key={episode.id}>
-        <img src={episode.image} alt={episode.title} />
-        <a
-          className="episode-title"
-          href={episode.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {episode.title}
-        </a>
-        <p>genres:{episode.genres}</p>
-        <p>{episode.description.substring(0, 300)}...</p>
-        <h3>Seasons:{episode.seasons}</h3>
-        <h5>Episodes:{episode.id}</h5>
-        <button className="btn btn-warning">Add to favorites</button>
-      </li>
-    </NavLink>
-  ));
-
   const filteredEpisodes = episodes.filter((episode) =>
     episode.title.toLowerCase().includes(searchepisode.toLowerCase())
   );
 
-  const episodesListFiltered = filteredEpisodes.map((episode) => (
-    <NavLink key={episode.id} to={`/episode/${episode.id}`}>
-      <li className="episode-card-list mt-5" key={episode.id}>
-        <img src={episode.image} alt={episode.title} />
-        <a
-          className="episode-title"
-          href={episode.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {episode.title}
-        </a>
-        <p>genres:{episode.genres}</p>
-        <p>{episode.description.substring(0, 300)}...</p>
-        <h3>Seasons:{episode.seasons}</h3>
-        <h5>Episodes:{episode.id}</h5>
-        <button className="btn btn-warning">Add to favorites</button>
-      </li>
-    </NavLink>
+  const episodesList = filteredEpisodes.map((episode) => (
+    <li className="episode-card-list card m-3 p-2" key={episode.id}>
+      <NavLink to={`/episode/${episode.id}`}>
+        <img className="card-img-top" src={episode.image} alt={episode.title} />
+        <div className="card-body">
+          <h5 className="card-title">{episode.title}</h5>
+          <p className="card-text">
+            {episode.description.substring(0, 100)}...
+          </p>
+          <p className="card-text">
+            <small className="text-muted">
+              Genres: {episode.genres.join(", ")}
+            </small>
+          </p>
+          <p className="card-text">
+            <small className="text-muted">Seasons: {episode.seasons}</small>
+          </p>
+          <button className="btn btn-warning">Add to favorites</button>
+        </div>
+      </NavLink>
+    </li>
   ));
+
   return (
-    <div className="episodes-page container p-5 mt-5 text-align-center  ">
-      <h1>Episodes</h1>
-      <div className="d-flex gap-2 text-align-center ">
+    <div className="episodes-page container p-5 mt-5">
+      <h1 className="text-center mb-4">Episodes</h1>
+      <div className="d-flex justify-content-center mb-4">
         <input
-          className="form-control w-50 rounded-3 bg-transparent text-white "
+          className="form-control w-50 rounded-3 bg-light"
           type="text"
           placeholder="Search episodes"
           value={searchepisode}
           onChange={(e) => setSearchepisode(e.target.value)}
         />
-        <button className="btn btn-warning">Search</button>
+        <button className="btn btn-warning ms-2">Search</button>
       </div>
-      <ul
-        style={{ marginTop: "100px" }}
-        className="episodes-list gap-3 w-100  d-flex flex-wrap justyfy-content-center"
-      >
+      <ul className="episodes-list d-flex flex-wrap justify-content-center">
         {isLoading ? (
           <div className="loading">Loading...</div>
-        ) : episodesListFiltered.length > 0 ? (
-          episodesListFiltered
-        ) : (
+        ) : episodesList.length > 0 ? (
           episodesList
+        ) : (
+          <div>No episodes found</div>
         )}
       </ul>
     </div>

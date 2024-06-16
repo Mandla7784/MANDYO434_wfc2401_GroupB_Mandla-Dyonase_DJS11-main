@@ -2,7 +2,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVideo, faHistory, faList } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faHistory, faList } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
   const closeSidebar = () => {
@@ -21,7 +21,7 @@ const Sidebar = () => {
       <ul>
         <li>
           <NavLink to="/home">
-            <FontAwesomeIcon icon={faVideo} /> Videos
+            <FontAwesomeIcon icon={faStar} /> Favourates
           </NavLink>
         </li>
         <li>
