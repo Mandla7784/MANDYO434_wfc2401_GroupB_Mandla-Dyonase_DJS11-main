@@ -72,10 +72,10 @@ export default function Episodes() {
           <p className="card-text">
             {episode.description.substring(0, 100)}...
           </p>
-          <p> {getGenreNames(episode.genres)} </p>
+
           <p className="card-text">
             <small className="text-muted">
-              Genres: {episode.genres.join(", ")}
+              Genres: <p> {getGenreNames(episode.genres)} </p>
             </small>
           </p>
           <p className="card-text">
