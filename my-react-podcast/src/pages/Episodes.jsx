@@ -82,7 +82,10 @@ export default function Episodes() {
 
   return (
     <div className="episodes-page container p-5 mt-5">
-      <h1 className="text-center mb-4">Episodes</h1>
+      <h1 className="text-center mb-4">
+        {" "}
+        <span className="text-warning">Shows /</span>Episodes
+      </h1>
       <div className="d-flex justify-content-center mb-4">
         <input
           className="form-control w-50 rounded-3 bg-light"
