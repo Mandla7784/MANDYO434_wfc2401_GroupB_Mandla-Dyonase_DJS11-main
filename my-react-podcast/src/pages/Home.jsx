@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Home.css";
+import CarouselComponent from "../components/Carousel";
 
 export default function Home() {
   const [shows, setShows] = useState([]);
@@ -18,7 +19,6 @@ export default function Home() {
     9: "Kids and Family",
   };
 
-  ///formating date for last updates in show card
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -28,7 +28,6 @@ export default function Home() {
     fetch(`https://podcast-api.netlify.app/`)
       .then((res) => res.json())
       .then((data) => {
-        // Simple sorting by title in alphabetical order
         const sortedShows = data.sort((a, b) => {
           if (a.title < b.title) return -1;
           if (a.title > b.title) return 1;
@@ -43,26 +42,13 @@ export default function Home() {
       });
   }, []);
 
-  const showsList = shows.map((show) => (
-    <li className="show-card" key={show.id}>
-      <NavLink to={`/show/${show.id}`}>
-        <img src={show.image} alt={show.title} />
-        <h3 className="show-title">{show.title}</h3>
-      </NavLink>
-      <p>{show.description.substring(0, 100)}</p>
-      <p>
-        <strong>Genres:</strong>{" "}
-        {show.genres
-          .map((genre) => showGenres[genre] || "Unknown Genre")
-          .join(", ")}
-      </p>
-      <p>Last Updated : {formatDate(show.updated)}</p>
-    </li>
-  ));
-
   return (
     <div className="home">
       <div className="home-hero text-align-center">
+        {shows.length > 0 && (
+          <CarouselComponent images={shows.map((show) => show.image)} />
+        )}
+
         <h1>Listen to New PODS</h1>
         <p>
           <i className="fa-solid fa-microphone"></i> Listen to the latest
@@ -74,7 +60,25 @@ export default function Home() {
         {isLoading ? (
           <p className="loading">Loading...</p>
         ) : (
-          <ul className="show-list">{showsList}</ul>
+          <ul className="show-list">
+            {shows.map((show) => (
+              <li className="show-card" key={show.id}>
+                <NavLink to={`/show/${show.id}`}>
+                  <img src={show.image} alt={show.title} />
+                  <h6 className="show-title">{show.title}</h6>
+                </NavLink>
+                <p>{show.description.substring(0, 100)}</p>
+                <p>
+                  <strong>Genres:</strong>{" "}
+                  {show.genres
+                    .map((genre) => showGenres[genre] || "Unknown Genre")
+                    .join(", ")}
+                </p>
+                <p>Last Updated : {formatDate(show.updated)}</p>
+                <p> Seasons : {show.seasons}</p>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>
