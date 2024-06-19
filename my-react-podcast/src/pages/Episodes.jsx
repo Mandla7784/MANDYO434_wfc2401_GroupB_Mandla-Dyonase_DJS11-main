@@ -11,12 +11,12 @@ export default function Episodes() {
   const [selectedEpisode, setSelectedEpisode] = useState(null); // State to store the selected episode for modal
 
   const showGenres = {
-    1: "	Personal Growth",
+    1: "Personal Growth",
     2: "Investigative Journalism",
-    3: "	History",
+    3: "History",
     4: "Comedy",
     5: "Entertainment",
-    6: "	Business",
+    6: "Business",
     7: "Fiction",
     8: "News",
     9: "Kids and Family",
@@ -124,7 +124,11 @@ export default function Episodes() {
       </ul>
 
       {/* Modal for displaying episode details */}
-      <Modal show={selectedEpisode !== null} onHide={handleCloseModal}>
+      <Modal
+        className="episodes-modal"
+        show={selectedEpisode !== null}
+        onHide={handleCloseModal}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{selectedEpisode?.title}</Modal.Title>
         </Modal.Header>
