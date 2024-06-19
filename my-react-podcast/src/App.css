@@ -1,8 +1,8 @@
 :root {
   --max-width: 1100px;
   --primary-color: ;
-  --back-color: #070303;
-  --btn-color: #ff9d2e;
+  --back-color: hsl(240, 20%, 14%);
+  --btn-color: #b5c0cf;
   --fine-color: #dbca33;
   --frint-color: #231715;
   --primary-color: #007bff;
@@ -10,6 +10,7 @@
   --glass-color: #13110f;
   --font-family: "Roboto", sans-serif;
   --transition: all 0.2s ease-in-out;
+  --hover-color: #393950;
 }
 .bg-warn {
   background-color: var(--btn-color);
@@ -41,6 +42,7 @@
   margin-bottom: 1rem;
   background-color: var(--back-color);
   z-index: 999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .header h1 {
@@ -65,11 +67,11 @@
 }
 
 .header ul li .active-link {
-  color: var(--btn-color);
+  color: var(--text-color);
   font-weight: bold;
   text-decoration: none;
   padding: 10px 20px;
-  background-color: var(--glass-color);
+  background-color: var(--hover-color);
   border-radius: 5px;
 }
 
@@ -116,18 +118,14 @@ Side bar styles
   background-color: var(--back-color);
   left: 0;
   position: fixed;
-  top: 150px;
+  top: 0;
   gap: 1rem;
   width: 20%;
   height: 100%;
-  box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(76, 80, 76) 0px 0px 0px 6px,
-    rgb(27, 27, 25) 0px 0px 0px 9px, rgb(155, 151, 149) 0px 0px 0px 12px,
-    rgb(255, 85, 85) 0px 0px 0px 15px;
-  box-shadow: rgba(20, 239, 255, 0.4) 5px 5px, rgba(26, 134, 197, 0.3) 10px 10px,
-    rgba(240, 46, 170, 0.2) 15px 15px, rgba(6, 138, 247, 0.1) 20px 20px,
-    rgba(10, 162, 233, 0.05) 25px 25px;
-  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
+  border-radius: 5px;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,14 +170,15 @@ Side bar styles
   gap: 1rem;
   padding: 1rem;
   border-radius: 5px;
-  background-color: var(--glass-color);
+  background-color: var(--back-color);
   margin-bottom: 1rem;
   height: 100px;
   color: var(--text-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .episode-card:hover {
   cursor: pointer;
-
+  background-color: var(--hover-color);
   transition: var(--transition);
   transform: scale(1.1);
 
