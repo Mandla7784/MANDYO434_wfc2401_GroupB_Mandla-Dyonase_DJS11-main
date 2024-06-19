@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/input.css";
 import "./App.css";
 import Header from "./components/Header";
-import "tailwindcss/tailwind.css";
+
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,7 +16,8 @@ import Footer from "./components/Footer";
 import History from "./pages/History";
 import PlayLists from "./pages/Playlistist";
 import Sidebar from "./components/Sidebar";
-import Episode from "./pages/Episode";
+
+import ShowDetail from "./components/ShowDetail";
 
 function App() {
   return (
@@ -31,9 +32,9 @@ function App() {
         </Route>
         <Route path="/episodes" element={<Episodes />} />
 
-        <Route path="/episode/:id" element={<Episode />} />
-
         <Route path="/about" element={<About />} />
+
+        <Route path="/show/:showId" element={<ShowDetail />} />
       </Routes>
 
       <Footer />

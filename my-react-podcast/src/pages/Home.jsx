@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Home.css";
 import CarouselComponent from "../components/Carousel";
 
@@ -62,21 +62,21 @@ export default function Home() {
         ) : (
           <ul className="show-list">
             {shows.map((show) => (
-              <li className="show-card" key={show.id}>
-                <NavLink to={`/show/${show.id}`}>
+              <Link to={`/show/${show.id}`} key={show.id}>
+                <li className="show-card" key={show.id}>
                   <img src={show.image} alt={show.title} />
                   <h6 className="show-title">{show.title}</h6>
-                </NavLink>
-                <p>{show.description.substring(0, 100)}</p>
-                <p>
-                  <strong>Genres:</strong>{" "}
-                  {show.genres
-                    .map((genre) => showGenres[genre] || "Unknown Genre")
-                    .join(", ")}
-                </p>
-                <p>Last Updated : {formatDate(show.updated)}</p>
-                <p> Seasons : {show.seasons}</p>
-              </li>
+
+                  <p>{show.description.substring(0, 100)}</p>
+                  <p>
+                    <strong>Genres:</strong>{" "}
+                    {show.genres
+                      .map((genre) => showGenres[genre] || "Unknown Genre")
+                      .join(", ")}
+                  </p>
+                  <p>Last Updated : {formatDate(show.updated)}</p>
+                </li>
+              </Link>
             ))}
           </ul>
         )}
