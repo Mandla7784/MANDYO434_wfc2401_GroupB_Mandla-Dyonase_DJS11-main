@@ -162,21 +162,18 @@ Side bar styles
   align-items: center;
   color: var(--btn-color);
 }
-.episode-card {
+.show-card {
   display: flex;
-  width: 90%;
+  flex-direction: column;
+  width: 400px;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 5px;
-  background-color: var(--back-color);
-  margin-bottom: 1rem;
-  height: 100px;
-  color: var(--text-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.episode-card:hover {
+
+.show-card:hover {
   cursor: pointer;
   background-color: var(--hover-color);
   transition: var(--transition);
@@ -186,12 +183,12 @@ Side bar styles
   border-radius: 5px;
   color: #161615;
 }
-.episode-card img {
-  width: 80px;
-  height: 80px;
+.show-card img {
+  width: 100%;
+  height: 100px;
   border-radius: 5px;
 }
-.episode-title {
+.show-title {
   font-weight: bold;
 
   color: var(--btn-color);
