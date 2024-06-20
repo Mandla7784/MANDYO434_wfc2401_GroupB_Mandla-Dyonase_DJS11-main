@@ -41,7 +41,7 @@ export default function Header() {
             }
             activeClassName="active-link"
           >
-            favorites
+            Favourites
           </NavLink>
         </li>
 

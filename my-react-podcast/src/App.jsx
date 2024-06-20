@@ -10,10 +10,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Importing from Pages
 import Home from "./pages/Home";
 import Episodes from "./pages/Episodes";
-import About from "./pages/About";
+import Favorites from "./pages/favourites";
 import Footer from "./components/Footer";
 import History from "./pages/History";
-import PlayLists from "./pages/Playlistist";
+import PlayLists from "./pages/favourites";
 import Sidebar from "./components/Sidebar";
 import ShowDetail from "./components/ShowDetail";
 
@@ -28,12 +28,12 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/playlists" element={<PlayLists />} />
         <Route path="/episodes" element={<Episodes />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/show/:showId" element={<ShowDetail />} />{" "}
         {/* Added ShowDetail route */}
       </Routes>
 
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
