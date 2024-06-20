@@ -1,16 +1,14 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
-
+import "./Header.css";
 export default function Header() {
-
-
   return (
     <header className="header">
       <h1 className="d-flex  text-center">
         <img className="logo-image" src={logo} alt="logo" />
         Cold- <span className="logo">Cast-Friday</span>
       </h1>
-      <ul  style={}>
+      <ul>
         <li>
           <NavLink
             className={({ isActive }) =>
@@ -81,12 +79,12 @@ export default function Header() {
         </li>
       </ul>
 
-      <div>
+      <div className="d-flex  justify-content-end align-items-center">
         <NavLink to="/log-in" activeClassName="active-link">
           <i className="fa-solid fa-right-to-bracket"></i>
         </NavLink>
         <NavLink
-          className="btn btn-outline-light  "
+          className="btn btn-outline-dark signup "
           style={{ color: "white" }}
           to="/sign-up"
           activeClassName="active-link"
