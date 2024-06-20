@@ -4,17 +4,44 @@
 }
 
 .home-hero {
+  position: relative;
   text-align: center;
   margin-bottom: 40px;
 }
 
-.home-hero h1 {
+.home-hero .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+.home-hero .hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+
+.home-hero .hero-content h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
-.home-hero p {
+.home-hero .hero-content p {
   font-size: 1.2rem;
+}
+
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  margin: 0 auto; /* Center horizontally */
 }
 
 .show-list {
@@ -37,16 +64,13 @@
   text-align: center;
   background-color: hsl(240, 20%, 14%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff; /* Text color for card content */
 }
 
-.show-image {
-  width: 400px;
-  height: 300px;
+.show-card img {
+  width: 100%;
+  height: 200px;
   object-fit: cover;
-  margin-bottom: 10px;
-
-  border-radius: 5px;
-
   border-radius: 5px;
   margin-bottom: 15px;
 }

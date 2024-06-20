@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import CarouselComponent from "../components/Carousel";
@@ -44,19 +44,27 @@ export default function Home() {
 
   return (
     <div className="home">
-      <div className="home-hero text-align-center">
-        {shows.length > 0 && (
-          <CarouselComponent images={shows.map((show) => show.image)} />
-        )}
+      <div className="home-hero">
+        <div className="hero-overlay"></div>
+        <div className="hero-content">
+          <h1>Listen to New PODS</h1>
+          <p>
+            <i className="fa-solid fa-microphone"></i> Listen to the latest
+            podcasts
+            <br />
+            <i className="fa-solid fa-circle-play"></i> Play your favorite
+            podcast
+          </p>
+        </div>
+        <div className="hero-carousel">
+          {shows.length > 0 && (
+            <CarouselComponent images={shows.map((show) => show.image)} />
+          )}
+        </div>
+      </div>
 
-        <h1>Listen to New PODS</h1>
-        <p>
-          <i className="fa-solid fa-microphone"></i> Listen to the latest
-          podcasts
-          <br />
-          <i className="fa-solid fa-circle-play"></i> Play your favorite podcast
-        </p>
-        <h2>Podcasts</h2>
+      <div className="container my-5">
+        <h2 className="mb-4">Podcasts</h2>
         {isLoading ? (
           <p className="loading">Loading...</p>
         ) : (

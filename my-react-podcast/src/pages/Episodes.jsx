@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap"; // Import Modal and Button from React Bootstrap
-import "./Episodes.css"; // Import a custom CSS file for additional styling
+import "./searchedShows.css"; // Import a custom CSS file for additional styling
 
 export default function Episodes() {
   const [episodes, setEpisodes] = useState([]);
