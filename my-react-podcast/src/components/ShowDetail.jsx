@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Showdetail.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function ShowDetail() {
   const { showId } = useParams();
@@ -8,6 +10,11 @@ export default function ShowDetail() {
   const [isLoading, setIsLoading] = useState(true); // initialize isLoading state variable
   const [error, setError] = useState(null); // initialize error state variable
   const [selectedSeason, setSelectedSeason] = useState(null); // initialize selectedSeason state variable
+  const [isFavorite, setIsFavorite] = useState(false); // initialize isFavorite state variable
+
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -116,6 +123,11 @@ export default function ShowDetail() {
                   <div key={episode.episode} className="episode-item">
                     <h4>{episode.title}</h4>
                     <p>{episode.description}</p>
+                    <i
+                      className="fa-solid fa-star"
+                      onClick={handleFavoriteClick}
+                    />
+                    <p>Mandla</p>
                     <audio controls>
                       <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
