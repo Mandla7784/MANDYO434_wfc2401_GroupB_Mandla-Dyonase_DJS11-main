@@ -128,7 +128,7 @@ export default function Episodes() {
         <span className="text-warning">Shows /</span>Episodes
       </h1>
       <div
-        className="d-flex justify-content-center mb-4 rounded-5 bg-transparent border gap-2  w-50   bg-gradient-to-r from-primary to-secondary text-white p-2
+        className=" container d-flex justify-content-center mb-4 rounded-5 bg-transparent border gap-2  w-50   bg-gradient-to-r from-primary to-secondary text-white p-2
       "
       >
         <input

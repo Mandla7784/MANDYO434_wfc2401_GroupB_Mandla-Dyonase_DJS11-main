@@ -55,7 +55,7 @@ export default function GenresPage() {
           </label>
           <select
             id="genreSelect"
-            className="form-select"
+            className="form-select bg-transparent text-white"
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
             <option value="">All Genres</option>
@@ -73,9 +73,12 @@ export default function GenresPage() {
       <div className="row">
         {filteredShows.map((show) => (
           <div key={show.id} className="col-md-4 mb-4">
-            <div className="card h-100">
+            <div
+              style={{ backgroundColor: "transparent" }}
+              className="card h-100 shadow bg-transparent"
+            >
               <img src={show.image} className="card-img-top" alt={show.title} />
-              <div className="card-body">
+              <div className="card-body bg-transparent">
                 <h5 className="card-title">{show.title}</h5>
                 <Link to={`/show/${show.id}`} className="btn btn-primary">
                   View Show
