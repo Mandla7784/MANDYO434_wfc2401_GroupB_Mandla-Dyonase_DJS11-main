@@ -97,7 +97,7 @@ export default function Home() {
           <div className="sort-options">
             <label className="sort-label">Sort by:</label>
             <select
-              className="sort-order"
+              className="sort-order form-select rounded-3 bg-transparent text-white"
               value={sortOrder}
               onChange={handleSortOrderChange}
             >
@@ -107,12 +107,19 @@ export default function Home() {
               <option value="Oldest">Oldest Updated</option>
             </select>
           </div>
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={handleSearchTermChange}
-            placeholder="Search for a podcast"
-          />
+          <div
+            className="bg-transparent border border-white rounded-5 d-flex gap-2 align-items-center px-3 py-2 mt-5 ju
+            stify-content-center w-75   "
+          >
+            <input
+              className="form-control rounded-3 w-100 bg-transparent text-white"
+              type="search"
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+              placeholder="Search for a podcast"
+            />
+            🔍
+          </div>
         </div>
         <h2 className="mb-4">Podcasts</h2>
 
