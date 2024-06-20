@@ -16,6 +16,7 @@ import History from "./pages/History";
 import PlayLists from "./pages/favourites";
 import Sidebar from "./components/Sidebar";
 import ShowDetail from "./components/ShowDetail";
+import Genres from "./pages/Genres";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/episodes" element={<Episodes />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/show/:showId" element={<ShowDetail />} />{" "}
+        <Route path="/genres" element={<Genres />} />
         {/* Added ShowDetail route */}
       </Routes>
 

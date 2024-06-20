@@ -77,6 +77,12 @@ export default function Header() {
             <i className="fa-solid fa-gear"></i>
           </NavLink>
         </li>
+
+        <li>
+          <NavLink to="/genres" activeClassName="active-link">
+            Genres
+          </NavLink>
+        </li>
       </ul>
 
       <div className="d-flex  justify-content-end align-items-center">
