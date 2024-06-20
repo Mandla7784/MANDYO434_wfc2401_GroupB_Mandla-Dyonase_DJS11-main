@@ -30,7 +30,7 @@ export default function Header() {
               isActive ? "active-link" : "text-white"
             }
           >
-            Episodes
+            Search Shows by fuzzy matching
           </NavLink>
         </li>
         <li>

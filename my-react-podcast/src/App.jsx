@@ -13,7 +13,7 @@ import Episodes from "./pages/Episodes";
 import About from "./pages/About";
 import Footer from "./components/Footer";
 import History from "./pages/History";
-import PlayLists from "./pages/Playlistist"; // Fixed typo: Playlistist -> Playlists
+import PlayLists from "./pages/Playlistist";
 import Sidebar from "./components/Sidebar";
 import ShowDetail from "./components/ShowDetail";
 
