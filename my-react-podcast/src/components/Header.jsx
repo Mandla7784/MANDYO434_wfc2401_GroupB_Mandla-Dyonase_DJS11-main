@@ -2,13 +2,15 @@ import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 export default function Header() {
+
+
   return (
     <header className="header">
       <h1 className="d-flex  text-center">
         <img className="logo-image" src={logo} alt="logo" />
         Cold- <span className="logo">Cast-Friday</span>
       </h1>
-      <ul>
+      <ul  style={}>
         <li>
           <NavLink
             className={({ isActive }) =>
