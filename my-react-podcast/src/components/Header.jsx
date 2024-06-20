@@ -78,9 +78,9 @@ export default function Header() {
           </NavLink>
         </li>
 
-        <li>
+        <li className="text-white">
           <NavLink to="/genres" activeClassName="active-link">
-            Genres
+            View By Genres
           </NavLink>
         </li>
       </ul>
