@@ -84,7 +84,7 @@ export default function Header() {
           <i className="fa-solid fa-right-to-bracket"></i>
         </NavLink>
         <NavLink
-          className="btn btn-outline- "
+          className="btn btn-outline-light  "
           style={{ color: "white" }}
           to="/sign-up"
           activeClassName="active-link"

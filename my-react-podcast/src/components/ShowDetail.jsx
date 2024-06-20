@@ -4,30 +4,37 @@ import "./Showdetail.css";
 
 export default function ShowDetail() {
   const { showId } = useParams();
-  const [showDetails, setShowDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [showDetails, setShowDetails] = useState(null); // initialize showDetails state variable
+  const [isLoading, setIsLoading] = useState(true); // initialize isLoading state variable
+  const [error, setError] = useState(null); // initialize error state variable
+  const [selectedSeason, setSelectedSeason] = useState(null); // initialize selectedSeason state variable
 
   useEffect(() => {
     const fetchShowDetails = async () => {
+      // fetch show details using showId from useParams
       try {
         const response = await fetch(
           `https://podcast-api.netlify.app/id/${showId}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch show details");
+          throw new Error("Failed to fetch show details"); // handle error using try/catch block
         }
-        const data = await response.json();
+        const data = await response.json(); // convert response to JSON object
         setShowDetails(data);
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // set isLoading to false when data is fetched
       }
     };
 
     fetchShowDetails();
   }, [showId]);
+
+  const handleSeasonSelect = (seasonNumber) => {
+    // handle season selection based on season number and selectedSeason state variable
+    setSelectedSeason(seasonNumber === selectedSeason ? null : seasonNumber);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -40,11 +47,6 @@ export default function ShowDetail() {
   if (!showDetails) {
     return <div>No show details available.</div>;
   }
-
-  const showDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
 
   return (
     <div className="show-page-wrapper">
@@ -60,7 +62,12 @@ export default function ShowDetail() {
           <h2 className="show-title">{showDetails.title}</h2>
           <p className="show-date">
             <span className="fw-bold">Last updated:</span>{" "}
-            {showDate(showDetails.updated)}
+            {new Date(showDetails.updated).toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            {/* // formating date function from showDetails object    */}
           </p>
           <p className="show-description">{showDetails.description}</p>
           <p className="show-seasons">
@@ -70,10 +77,26 @@ export default function ShowDetail() {
         </div>
       </div>
       <div className="seasons-wrapper">
+        <div className="seasons-tab">
+          {showDetails.seasons.map((season) => (
+            <button
+              key={season.season}
+              className={`season-tab ${
+                season.season === selectedSeason ? "active" : ""
+              }`}
+              onClick={() => handleSeasonSelect(season.season)}
+              //     onClick={() => handleSeasonSelect(season.season)} // handle season selection
+            >
+              Season {season.season}
+            </button>
+          ))}
+        </div>
         {showDetails.seasons.map((season) => (
           <div
             key={season.season}
-            className="card season-card d-flex flex-column gap-4 p-3 my-3 w-100"
+            className={`season-episodes ${
+              season.season === selectedSeason ? "show" : "hide"
+            }`}
           >
             <div className="d-flex">
               <img
@@ -94,7 +117,7 @@ export default function ShowDetail() {
                     <h4>{episode.title}</h4>
                     <p>{episode.description}</p>
                     <audio controls>
-                      <source src={episode.file} type="audio/mpeg" />
+                      <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
                     </audio>
                   </div>
@@ -107,3 +130,10 @@ export default function ShowDetail() {
     </div>
   );
 }
+
+/**
+ * @returns {JSX.Element}
+ * @param {number} showId
+ * @param {string} selectedSeason
+ * @param {function} handleSeasonSelect
+ */
