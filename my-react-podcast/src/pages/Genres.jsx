@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 export default function GenresPage() {
@@ -7,17 +7,21 @@ export default function GenresPage() {
   const [filteredShows, setFilteredShows] = useState([]);
   const [genreName, setGenreName] = useState("");
 
-  const genreOptions = {
-    1: "Personal Growth",
-    2: "Investigative Journalism",
-    3: "History",
-    4: "Comedy",
-    5: "Entertainment",
-    6: "Business",
-    7: "Fiction",
-    8: "News",
-    9: "Kids and Family",
-  };
+  const genreOptions = useMemo(
+    () => ({
+      0: "All Genres",
+      1: "Personal Growth",
+      2: "Investigative Journalism",
+      3: "History",
+      4: "Comedy",
+      5: "Entertainment",
+      6: "Business",
+      7: "Fiction",
+      8: "News",
+      9: "Kids and Family",
+    }),
+    []
+  );
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app")
@@ -42,36 +46,42 @@ export default function GenresPage() {
   }, [selectedGenre, shows, genreOptions]);
 
   return (
-    <div className="genres-page">
-      <h2 className="genres-title">Genres</h2>
-      <div className="genre-select-container">
-        <label htmlFor="genreSelect" className="genre-label">
-          Select Genre:
-        </label>
-        <select
-          id="genreSelect"
-          className="genre-select"
-          onChange={(e) => setSelectedGenre(e.target.value)}
-        >
-          <option value="">All Genres</option>
-          {Object.entries(genreOptions).map(([id, name]) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Genres</h2>
+      <div className="row mb-4">
+        <div className="col-md-6 offset-md-3">
+          <label htmlFor="genreSelect" className="form-label">
+            Select Genre:
+          </label>
+          <select
+            id="genreSelect"
+            className="form-select"
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <option value="">All Genres</option>
+            {Object.entries(genreOptions).map(([id, name]) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       {genreName && (
-        <h3 className="selected-genre-heading">Selected Genre: {genreName}</h3>
+        <h3 className="text-center mb-4">Filter by: {genreName}</h3>
       )}
-      <div className="show-list">
+      <div className="row">
         {filteredShows.map((show) => (
-          <div key={show.id} className="show-item">
-            <img src={show.image} alt={show.title} />
-            <h3>{show.title}</h3>
-            <Link to={`/show/${show.id}`} className="view-show-link">
-              View Show
-            </Link>
+          <div key={show.id} className="col-md-4 mb-4">
+            <div className="card h-100">
+              <img src={show.image} className="card-img-top" alt={show.title} />
+              <div className="card-body">
+                <h5 className="card-title">{show.title}</h5>
+                <Link to={`/show/${show.id}`} className="btn btn-primary">
+                  View Show
+                </Link>
+              </div>
+            </div>
           </div>
         ))}
       </div>
