@@ -1,4 +1,3 @@
-// import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 
@@ -82,10 +81,10 @@ export default function Header() {
 
       <div>
         <NavLink to="/log-in" activeClassName="active-link">
-          {/* <i className="fa-solid fa-right-to-bracket"></i> */}
+          <i className="fa-solid fa-right-to-bracket"></i>
         </NavLink>
         <NavLink
-          className="btn btn-outline-dark "
+          className="btn btn-outline- "
           style={{ color: "white" }}
           to="/sign-up"
           activeClassName="active-link"

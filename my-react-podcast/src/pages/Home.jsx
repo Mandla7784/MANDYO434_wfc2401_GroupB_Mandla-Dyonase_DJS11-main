@@ -74,6 +74,7 @@ export default function Home() {
                       .map((genre) => showGenres[genre] || "Unknown Genre")
                       .join(", ")}
                   </p>
+                  <p>Seasons: {show.seasons}</p>
                   <p>Last Updated : {formatDate(show.updated)}</p>
                 </li>
               </Link>
