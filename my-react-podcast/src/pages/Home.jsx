@@ -74,7 +74,6 @@ export default function Home() {
                 <li className="show-card" key={show.id}>
                   <img src={show.image} alt={show.title} />
                   <h6 className="show-title">{show.title}</h6>
-
                   <p>{show.description.substring(0, 100)}</p>
                   <p>
                     <strong>Genres:</strong>{" "}
@@ -82,7 +81,7 @@ export default function Home() {
                       .map((genre) => showGenres[genre] || "Unknown Genre")
                       .join(", ")}
                   </p>
-                  <p>Seasons: {show.seasons}</p>
+                  <p>Seasons: {show.seasons.length}</p>
                   <p>Last Updated : {formatDate(show.updated)}</p>
                 </li>
               </Link>

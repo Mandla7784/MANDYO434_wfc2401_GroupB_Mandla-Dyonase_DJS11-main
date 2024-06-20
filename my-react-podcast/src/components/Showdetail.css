@@ -1,0 +1,81 @@
+/* ShowDetail.css */
+
+.show-page-wrapper {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.show-page {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.show-image {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.show-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.show-date,
+.show-description,
+.show-seasons {
+  margin: 10px 0;
+}
+
+.seasons-wrapper {
+  margin-top: 20px;
+}
+
+.season-card {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.season-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.episodes-wrapper {
+  margin-top: 20px;
+}
+
+.episode-item {
+  border-top: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.episode-item h4 {
+  margin-top: 0;
+}
+
+.episode-item audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.loading,
+.error,
+.no-data {
+  text-align: center;
+  margin-top: 20px;
+}

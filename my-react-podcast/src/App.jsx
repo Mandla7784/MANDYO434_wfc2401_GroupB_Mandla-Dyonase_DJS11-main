@@ -33,7 +33,7 @@ function App() {
         {/* Added ShowDetail route */}
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
