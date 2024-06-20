@@ -1,46 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Showdetail.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function ShowDetail() {
   const { showId } = useParams();
-  const [showDetails, setShowDetails] = useState(null); // initialize showDetails state variable
-  const [isLoading, setIsLoading] = useState(true); // initialize isLoading state variable
-  const [error, setError] = useState(null); // initialize error state variable
-  const [selectedSeason, setSelectedSeason] = useState(null); // initialize selectedSeason state variable
-  const [isFavorite, setIsFavorite] = useState(false); // initialize isFavorite state variable
-
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
-  };
+  const [showDetails, setShowDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+  });
 
   useEffect(() => {
     const fetchShowDetails = async () => {
-      // fetch show details using showId from useParams
       try {
         const response = await fetch(
           `https://podcast-api.netlify.app/id/${showId}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch show details"); // handle error using try/catch block
+          throw new Error("Failed to fetch show details");
         }
-        const data = await response.json(); // convert response to JSON object
+        const data = await response.json();
         setShowDetails(data);
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(false); // set isLoading to false when data is fetched
+        setIsLoading(false);
       }
     };
 
     fetchShowDetails();
   }, [showId]);
 
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   const handleSeasonSelect = (seasonNumber) => {
-    // handle season selection based on season number and selectedSeason state variable
     setSelectedSeason(seasonNumber === selectedSeason ? null : seasonNumber);
+  };
+
+  const addToFavorites = (episodeId) => {
+    if (!favorites.includes(episodeId)) {
+      setFavorites([...favorites, episodeId]);
+    }
   };
 
   if (isLoading) {
@@ -74,7 +78,6 @@ export default function ShowDetail() {
               month: "long",
               day: "numeric",
             })}
-            {/* // formating date function from showDetails object    */}
           </p>
           <p className="show-description">{showDetails.description}</p>
           <p className="show-seasons">
@@ -92,7 +95,6 @@ export default function ShowDetail() {
                 season.season === selectedSeason ? "active" : ""
               }`}
               onClick={() => handleSeasonSelect(season.season)}
-              //     onClick={() => handleSeasonSelect(season.season)} // handle season selection
             >
               Season {season.season}
             </button>
@@ -120,18 +122,23 @@ export default function ShowDetail() {
               </p>
               <div className="episodes-wrapper">
                 {season.episodes.map((episode) => (
-                  <div key={episode.episode} className="episode-item">
+                  <div key={episode.id} className="episode-item">
                     <h4>{episode.title}</h4>
                     <p>{episode.description}</p>
-                    <i
-                      className="fa-solid fa-star"
-                      onClick={handleFavoriteClick}
-                    />
-                    <p>Mandla</p>
+
                     <audio controls>
                       <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
                     </audio>
+
+                    <div>
+                      <button
+                        onClick={() => addToFavorites(episode.id)}
+                        className="btn btn-primary"
+                      >
+                        Add to Favorites
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -142,10 +149,3 @@ export default function ShowDetail() {
     </div>
   );
 }
-
-/**
- * @returns {JSX.Element}
- * @param {number} showId
- * @param {string} selectedSeason
- * @param {function} handleSeasonSelect
- */

@@ -35,13 +35,13 @@ export default function Header() {
         </li>
         <li>
           <NavLink
-            to="/about"
+            to="/favorites"
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
             activeClassName="active-link"
           >
-            About
+            favorites
           </NavLink>
         </li>
 

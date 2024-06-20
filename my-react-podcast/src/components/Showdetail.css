@@ -86,7 +86,6 @@
   height: auto;
   border-radius: 8px;
   margin-bottom: 15px;
-  height: 200px;
   max-width: 600px;
 }
 
@@ -116,4 +115,14 @@
 audio {
   width: 100%;
   outline: none;
+}
+
+.star-icon {
+  color: #ccc;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.star-icon.favorite {
+  color: gold;
 }

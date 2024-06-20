@@ -43,9 +43,24 @@ export default function Episodes() {
     if (favorites.includes(episodeId)) {
       setFavorites(favorites.filter((id) => id !== episodeId));
     } else {
+      localStorage.setItem(
+        "favorites",
+        JSON.stringify([...favorites, episodeId])
+      );
       setFavorites([...favorites, episodeId]);
     }
   };
+
+  const getFavorites = () => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  };
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
 
   const handleEpisodeClick = (episode) => {
     setSelectedEpisode(episode);
@@ -154,7 +169,12 @@ export default function Episodes() {
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="warning">Download</Button>
+          <button
+            onClick={() => toggleFavorite(selectedEpisode?.id)}
+            className="btn btn-warning ms-2"
+          >
+            Add to favorites
+          </button>
         </Modal.Footer>
       </Modal>
     </div>
