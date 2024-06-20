@@ -1,6 +1,6 @@
 export default function Favorites() {
   const my_Favourites = JSON.parse(localStorage.getItem("favorites"));
-
+  const time = JSON.parse(localStorage.getItem("time"));
   const hadleRemove = (id) => {
     const newFavourites = my_Favourites.filter((fav) => fav !== id);
     localStorage.setItem("favorites", JSON.stringify(newFavourites));
@@ -14,6 +14,7 @@ export default function Favorites() {
           <button onClick={() => hadleRemove(id)} className="btn btn-danger">
             Remove From Favourites
           </button>
+          <p>{time}</p>
         </div>
       ))}
     </div>

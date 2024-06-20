@@ -8,6 +8,7 @@ export default function Episodes() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchepisode, setSearchepisode] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [timeStamp, setTimeStamp] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null); // State to store the selected episode for modal
 
   const showGenres = {
@@ -43,16 +44,19 @@ export default function Episodes() {
     if (favorites.includes(episodeId)) {
       setFavorites(favorites.filter((id) => id !== episodeId));
     } else {
+      localStorage.setItem("time", JSON.stringify(new Date()));
       localStorage.setItem(
         "favorites",
         JSON.stringify([...favorites, episodeId])
       );
       setFavorites([...favorites, episodeId]);
+      setTimeStamp(timeStamp);
     }
   };
 
   const getFavorites = () => {
     const storedFavorites = localStorage.getItem("favorites");
+
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites));
     }
@@ -60,7 +64,12 @@ export default function Episodes() {
 
   useEffect(() => {
     getFavorites();
-  }, []);
+    const intervalId = setInterval(() => {
+      setTimeStamp(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  });
 
   const handleEpisodeClick = (episode) => {
     setSelectedEpisode(episode);
@@ -173,7 +182,7 @@ export default function Episodes() {
             onClick={() => toggleFavorite(selectedEpisode?.id)}
             className="btn btn-warning ms-2"
           >
-            Add to favorites
+            Like Episode
           </button>
         </Modal.Footer>
       </Modal>

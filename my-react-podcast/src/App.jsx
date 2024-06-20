@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Importing from Pages
 import Home from "./pages/Home";
-import Episodes from "./pages/Episodes";
+import Episodes from "./pages/AddToFavourite";
 import Favorites from "./pages/favourites";
 import Footer from "./components/Footer";
 import History from "./pages/History";
