@@ -3,21 +3,23 @@ import { useParams } from "react-router-dom";
 import "./Showdetail.css";
 
 export default function ShowDetail() {
+  //
   const { showId } = useParams();
-  const [showDetails, setShowDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [showDetails, setShowDetails] = useState(null); // State to store the show details
+  const [isLoading, setIsLoading] = useState(true); // State to track if data is loading
   const [error, setError] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState(null); // State to store the selected season
   const [favorites, setFavorites] = useState(() => {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
+    return JSON.parse(localStorage.getItem("favorites")) || []; // Get stored favorites from local storage
   });
 
   const [checkedEpisodes, setCheckedEpisodes] = useState(() => {
-    return JSON.parse(localStorage.getItem("checkedEpisodes")) || {};
+    return JSON.parse(localStorage.getItem("checkedEpisodes")) || {}; // Get stored checked episodes from local storage
   });
 
   useEffect(() => {
     const fetchShowDetails = async () => {
+      // Function to fetch show details
       try {
         const response = await fetch(
           `https://podcast-api.netlify.app/id/${showId}`
@@ -25,49 +27,49 @@ export default function ShowDetail() {
         if (!response.ok) {
           throw new Error("Failed to fetch show details");
         }
-        const data = await response.json();
+        const data = await response.json(); // Parse the response as JSON
         setShowDetails(data);
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Set loading to false
       }
     };
 
-    fetchShowDetails();
+    fetchShowDetails(); // Call the function to fetch show details
   }, [showId]);
 
   useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites)); // Update favorites in local storage
   }, [favorites]);
 
   useEffect(() => {
-    localStorage.setItem("checkedEpisodes", JSON.stringify(checkedEpisodes));
+    localStorage.setItem("checkedEpisodes", JSON.stringify(checkedEpisodes)); // Update checked episodes in local storage
   }, [checkedEpisodes]);
 
   const handleSeasonSelect = (seasonNumber) => {
-    setSelectedSeason(seasonNumber === selectedSeason ? null : seasonNumber);
+    setSelectedSeason(seasonNumber === selectedSeason ? null : seasonNumber); // Toggle selected season
   };
 
   const handleCheckFavorites = (episodeId) => {
     setCheckedEpisodes((prevCheckedEpisodes) => ({
       ...prevCheckedEpisodes,
-      [episodeId]: !prevCheckedEpisodes[episodeId],
+      [episodeId]: !prevCheckedEpisodes[episodeId], // Toggle checked state
     }));
   };
 
   const addToFavorites = (episodeId) => {
     if (!favorites.includes(episodeId)) {
-      setFavorites([...favorites, episodeId]);
+      setFavorites([...favorites, episodeId]); // Add episode to favorites
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
+    return <div>Loading...</div>; // Display loading message
+  } // Display error message
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>; // Display error message
   }
 
   if (!showDetails) {

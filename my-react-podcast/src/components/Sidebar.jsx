@@ -6,6 +6,7 @@ import {
   faHistory,
   faList,
   faTimes,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons"; //
 import "./Sidebar.css"; // Import custom CSS for styling
 
@@ -33,17 +34,11 @@ const Sidebar = () => {
             to="/home"
             activeClassName="active-link"
             onClick={toggleSidebar}
-          >
-            <FontAwesomeIcon icon={faStar} /> Favorites
-          </NavLink>
+          ></NavLink>
         </li>
         <li>
-          <NavLink
-            to="/episodes"
-            activeClassName="active-link"
-            onClick={toggleSidebar}
-          >
-            <FontAwesomeIcon icon={faHistory} /> History
+          <NavLink to="/" activeClassName="active-link" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faHome} /> Home
           </NavLink>
         </li>
         <li>
@@ -52,7 +47,7 @@ const Sidebar = () => {
             activeClassName="active-link"
             onClick={toggleSidebar}
           >
-            <FontAwesomeIcon icon={faList} /> Playlists
+            <FontAwesomeIcon icon={faList} /> Favourate Playlist
           </NavLink>
         </li>
       </ul>

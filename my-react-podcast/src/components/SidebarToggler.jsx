@@ -1,14 +1,13 @@
-const SidebarCloser = () => {
-  const closeSidebar = () => {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.classList.remove("open");
+const SidebarOpener = () => {
+  const openSidebar = () => {
+    const sidebar = document.querySelector(".sidebar"); // Get the sidebar element
+    sidebar.classList.add("open"); // Add the "open" class to the sidebar
   };
 
   return (
     <div className="sidebar-toggler">
-      <i onClick={closeSidebar} className="fa fa-times" aria-hidden="true"></i>
+      <i onClick={openSidebar} className="fa fa-bars" aria-hidden="true"></i>
     </div>
   );
 };
-
-export default SidebarCloser;
+export default SidebarOpener;

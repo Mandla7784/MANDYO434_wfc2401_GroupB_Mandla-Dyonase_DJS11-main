@@ -17,42 +17,49 @@ const showGenres = {
 
 // Function to get genre names from IDs
 const getGenreNames = (genreIds) => {
-  return genreIds.map((id) => showGenres[id] || "Unknown Genre").join(", ");
+  // getting genre names from ids
+  if (!genreIds) {
+    return "";
+  }
+
+  return genreIds.map((id) => showGenres[id] || "Unknown Genre").join(", "); // return genre names
 };
 
 export default function Episodes() {
-  const [episodes, setEpisodes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Function to render the list of episodes
+  const [episodes, setEpisodes] = useState([]); // State to store the list of episodes
+  const [isLoading, setIsLoading] = useState(true); // State to track if data is loading
   const [searchepisode, setSearchepisode] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [selectedEpisode, setSelectedEpisode] = useState(null); // State to store the selected episode for modal
 
   useEffect(() => {
-    fetch(`https://podcast-api.netlify.app/`)
-      .then((res) => res.json())
+    fetch(`https://podcast-api.netlify.app/`) // Fetch data from the API
+      .then((res) => res.json()) // Parse the response as JSON
       .then((data) => {
-        setEpisodes(data);
-        setIsLoading(false);
+        setEpisodes(data); // Set the data in the state
+        setIsLoading(false); // Set loading to false
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
+        console.error("Error fetching data:", error); // Log any errors
+        setIsLoading(false); // Set loading to false
       });
-  }, []);
+  }, []); // Only run once on component mount (when the page loads)
 
   const toggleFavorite = (episodeId) => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    // Function to toggle favorite episodes
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || []; // Get stored favorites from local storage
     const storedTimestamps =
-      JSON.parse(localStorage.getItem("timestamps")) || {};
+      JSON.parse(localStorage.getItem("timestamps")) || {}; // Get stored timestamps from local storage
 
     if (storedFavorites.includes(episodeId)) {
-      const updatedFavorites = storedFavorites.filter((id) => id !== episodeId);
+      const updatedFavorites = storedFavorites.filter((id) => id !== episodeId); // Remove episode from favorites
       delete storedTimestamps[episodeId];
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      localStorage.setItem("timestamps", JSON.stringify(storedTimestamps));
-      setFavorites(updatedFavorites);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Update favorites in local storage
+      localStorage.setItem("timestamps", JSON.stringify(storedTimestamps)); // Update timestamps in local storage
+      setFavorites(updatedFavorites); // Update favorites in state
     } else {
-      const newFavorites = [...storedFavorites, episodeId];
+      const newFavorites = [...storedFavorites, episodeId]; // Add episode to favorites
       const newTimestamps = { ...storedTimestamps, [episodeId]: new Date() };
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
       localStorage.setItem("timestamps", JSON.stringify(newTimestamps));
@@ -61,16 +68,16 @@ export default function Episodes() {
   };
 
   const getFavorites = () => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || []; // Get stored favorites from local storage
     setFavorites(storedFavorites);
   };
 
   useEffect(() => {
-    getFavorites();
+    getFavorites(); // Get favorites on component mount
   }, []);
 
   const handleEpisodeClick = (episode) => {
-    setSelectedEpisode(episode);
+    setSelectedEpisode(episode); // Set selected episode in state
   };
 
   const handleCloseModal = () => {

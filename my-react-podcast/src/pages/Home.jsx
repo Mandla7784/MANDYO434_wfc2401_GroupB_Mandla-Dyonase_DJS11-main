@@ -4,10 +4,10 @@ import "./Home.css";
 import CarouselComponent from "../components/Carousel";
 
 export default function Home() {
-  const [shows, setShows] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("A-Z");
+  const [shows, setShows] = useState([]); // State to store the list of shows
+  const [isLoading, setIsLoading] = useState(true); // State to track if data is loading
+  const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
+  const [sortOrder, setSortOrder] = useState("A-Z"); // State to store the sort order
 
   const showGenres = {
     1: "Personal Growth",
@@ -29,15 +29,16 @@ export default function Home() {
   // Sort shows based on selected sortOrder
   const sortedShows = [...filteredShows].sort((a, b) => {
     if (sortOrder === "A-Z") {
-      return a.title.localeCompare(b.title);
+      // Sort by title
+      return a.title.localeCompare(b.title); // Compare titles in alphabetical order
     } else if (sortOrder === "Z-A") {
-      return b.title.localeCompare(a.title);
+      return b.title.localeCompare(a.title); // Reverse sort by title
     } else if (sortOrder === "Recent") {
-      return new Date(b.updated) - new Date(a.updated);
+      return new Date(b.updated) - new Date(a.updated); // Sort by updated date
     } else if (sortOrder === "Oldest") {
       return new Date(a.updated) - new Date(b.updated);
     }
-    return 0;
+    return 0; // Default sort order
   });
 
   // Format date for display
@@ -48,14 +49,15 @@ export default function Home() {
 
   // Fetch shows data
   useEffect(() => {
-    fetch(`https://podcast-api.netlify.app/`)
-      .then((res) => res.json())
+    fetch(`https://podcast-api.netlify.app/`) // Replace with your API endpoint
+      .then((res) => res.json()) // Parse response as JSON
       .then((data) => {
+        // Process data
         setShows(data);
-        setIsLoading(false);
+        setIsLoading(false); // Set loading to false
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error); // Log any errors
         setIsLoading(false);
       });
   }, []);
