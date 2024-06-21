@@ -21,10 +21,12 @@ export default function Home() {
     9: "Kids and Family",
   };
 
+  // Filter shows based on search term
   const filteredShows = shows.filter((show) =>
     show.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Sort shows based on selected sortOrder
   const sortedShows = [...filteredShows].sort((a, b) => {
     if (sortOrder === "A-Z") {
       return a.title.localeCompare(b.title);
@@ -32,26 +34,24 @@ export default function Home() {
       return b.title.localeCompare(a.title);
     } else if (sortOrder === "Recent") {
       return new Date(b.updated) - new Date(a.updated);
-    } else {
+    } else if (sortOrder === "Oldest") {
       return new Date(a.updated) - new Date(b.updated);
     }
+    return 0;
   });
 
+  // Format date for display
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  // Fetch shows data
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/`)
       .then((res) => res.json())
       .then((data) => {
-        const sortedShows = data.sort((a, b) => {
-          if (a.title < b.title) return -1;
-          if (a.title > b.title) return 1;
-          return 0;
-        });
-        setShows(sortedShows);
+        setShows(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -60,21 +60,12 @@ export default function Home() {
       });
   }, []);
 
-  const handleSearchTermChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSortOrderChange = (event) => {
-    setSortOrder(event.target.value);
-  };
-
   return (
     <div className="home">
       <div className="home-hero">
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1>Listen to New PODS</h1>
-
           <p>
             <i className="fa-solid fa-microphone"></i> Listen to the latest
             podcasts
@@ -99,7 +90,7 @@ export default function Home() {
             <select
               className="sort-order form-select rounded-3 bg-transparent text-white"
               value={sortOrder}
-              onChange={handleSortOrderChange}
+              onChange={(e) => setSortOrder(e.target.value)}
             >
               <option value="A-Z">Title: A-Z</option>
               <option value="Z-A">Title: Z-A</option>
@@ -107,15 +98,12 @@ export default function Home() {
               <option value="Oldest">Oldest Updated</option>
             </select>
           </div>
-          <div
-            className="bg-transparent border border-white rounded-5 d-flex gap-2 align-items-center px-3 py-2 mt-5 ju
-            stify-content-center w-75   "
-          >
+          <div className="bg-transparent border border-white rounded-5 d-flex gap-2 align-items-center px-3 py-2 mt-5 justify-content-center w-75">
             <input
               className="form-control rounded-3 w-100 bg-transparent text-white"
               type="search"
               value={searchTerm}
-              onChange={handleSearchTermChange}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search for a podcast"
             />
             🔍
@@ -140,7 +128,7 @@ export default function Home() {
                       .join(", ")}
                   </p>
                   <p>Seasons: {show.seasons.length}</p>
-                  <p>Last Updated : {formatDate(show.updated)}</p>
+                  <p>Last Updated: {formatDate(show.updated)}</p>
                 </li>
               </Link>
             ))}
