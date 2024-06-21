@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap"; // Import Modal and Button from React Bootstrap
-import "./searchedShows.css"; // Import a custom CSS file for additional styling
+import { useEffect, useState, useRef } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
+import "./searchedShows.css"; // Import custom CSS file for additional styling
+
+const showGenres = {
+  1: "Personal Growth",
+  2: "Investigative Journalism",
+  3: "History",
+  4: "Comedy",
+  5: "Entertainment",
+  6: "Business",
+  7: "Fiction",
+  8: "News",
+  9: "Kids and Family",
+};
+
+// Function to get genre names from IDs
+const getGenreNames = (genreIds) => {
+  return genreIds.map((id) => showGenres[id] || "Unknown Genre").join(", ");
+};
 
 export default function Episodes() {
   const [episodes, setEpisodes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchepisode, setSearchepisode] = useState("");
   const [favorites, setFavorites] = useState([]);
-  const [timeStamp, setTimeStamp] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null); // State to store the selected episode for modal
-
-  const showGenres = {
-    1: "Personal Growth",
-    2: "Investigative Journalism",
-    3: "History",
-    4: "Comedy",
-    5: "Entertainment",
-    6: "Business",
-    7: "Fiction",
-    8: "News",
-    9: "Kids and Family",
-  };
-  // Function to get genre names from IDs
-  const getGenreNames = (genreIds) => {
-    return genreIds.map((id) => showGenres[id] || "Unknown Genre").join(", ");
-  };
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/`)
@@ -41,35 +41,33 @@ export default function Episodes() {
   }, []);
 
   const toggleFavorite = (episodeId) => {
-    if (favorites.includes(episodeId)) {
-      setFavorites(favorites.filter((id) => id !== episodeId));
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const storedTimestamps =
+      JSON.parse(localStorage.getItem("timestamps")) || {};
+
+    if (storedFavorites.includes(episodeId)) {
+      const updatedFavorites = storedFavorites.filter((id) => id !== episodeId);
+      delete storedTimestamps[episodeId];
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      localStorage.setItem("timestamps", JSON.stringify(storedTimestamps));
+      setFavorites(updatedFavorites);
     } else {
-      localStorage.setItem("time", JSON.stringify(new Date()));
-      localStorage.setItem(
-        "favorites",
-        JSON.stringify([...favorites, episodeId])
-      );
-      setFavorites([...favorites, episodeId]);
-      setTimeStamp(timeStamp);
+      const newFavorites = [...storedFavorites, episodeId];
+      const newTimestamps = { ...storedTimestamps, [episodeId]: new Date() };
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      localStorage.setItem("timestamps", JSON.stringify(newTimestamps));
+      setFavorites(newFavorites);
     }
   };
 
   const getFavorites = () => {
-    const storedFavorites = localStorage.getItem("favorites");
-
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(storedFavorites);
   };
 
   useEffect(() => {
     getFavorites();
-    const intervalId = setInterval(() => {
-      setTimeStamp(new Date());
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  });
+  }, []);
 
   const handleEpisodeClick = (episode) => {
     setSelectedEpisode(episode);
@@ -127,12 +125,9 @@ export default function Episodes() {
         {" "}
         <span className="text-warning">Shows /</span>Episodes
       </h1>
-      <div
-        className=" container d-flex justify-content-center mb-4 rounded-5 bg-transparent border gap-2  w-50   bg-gradient-to-r from-primary to-secondary text-white p-2
-      "
-      >
+      <div className="container d-flex justify-content-center mb-4 rounded-5 bg-transparent border gap-2 w-50 bg-gradient-to-r from-primary to-secondary text-white p-2">
         <input
-          className="form-control w-50 rounded-3 flex-grow-1 bg-transparent rounded-5  bg-gradient-to-r from-primary to-secondary text-white p-2"
+          className="form-control w-50 rounded-3 flex-grow-1 bg-transparent rounded-5 bg-gradient-to-r from-primary to-secondary text-white p-2"
           type="text"
           placeholder="Search episodes"
           value={searchepisode}
@@ -185,10 +180,113 @@ export default function Episodes() {
             onClick={() => toggleFavorite(selectedEpisode?.id)}
             className="btn btn-warning ms-2"
           >
-            Like Episode
+            {favorites.includes(selectedEpisode?.id)
+              ? "Remove from favorites"
+              : "Add to favorites"}
           </button>
         </Modal.Footer>
       </Modal>
+    </div>
+  );
+}
+
+export function Episode() {
+  const [episode, setEpisode] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    // Fetch episode data
+    fetch(`https://podcast-api.netlify.app/episodes/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEpisode(data);
+        setIsLoading(false);
+        setIsPlaying(true); // Auto-play when episode data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching episode:", error);
+        setIsLoading(false);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    // Playback control based on isPlaying state and episode changes
+    if (audioRef.current && isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error("Error playing audio:", error);
+      });
+    } else if (audioRef.current && !isPlaying) {
+      audioRef.current.pause();
+    }
+  }, [isPlaying, episode]);
+
+  const handlePlayPause = () => {
+    // Toggle play/pause state
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleAudioEnd = () => {
+    // Reset isPlaying when audio playback ends
+    setIsPlaying(false);
+  };
+
+  return (
+    <div>
+      <h1>Episode</h1>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        episode && (
+          <div className="episode-card-div" key={episode.id}>
+            <h2 className="episode-title">{episode.title}</h2>
+            {episode.image ? (
+              <img
+                src={episode.image} // Correct property name for the image URL
+                alt={`${episode.title} cover`}
+                style={{ width: "200px", height: "200px", objectFit: "cover" }}
+              />
+            ) : (
+              <p>No cover image available</p>
+            )}
+            {episode.audioUrl && (
+              <audio
+                ref={audioRef}
+                onEnded={handleAudioEnd}
+                src={episode.audioUrl}
+                controls
+              >
+                Your browser does not support the audio element.
+              </audio>
+            )}
+            <button onClick={handlePlayPause}>
+              {isPlaying ? "⏸️ Pause" : "▶️ Play"}
+            </button>
+
+            <div>
+              <p>{episode.description}</p>
+              <p>
+                <small className="text-muted">
+                  Genres: {episode.genres.join(", ")}
+                </small>
+              </p>
+              <p>
+                <small className="text-muted">Seasons: {episode.seasons}</small>
+              </p>
+              <button
+                className="btn btn-warning"
+                onClick={() => toggleFavorite(episode.id)}
+              >
+                {favorites.includes(episode.id)
+                  ? "Remove from favorites"
+                  : "Add to favorites"}
+              </button>
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 }
