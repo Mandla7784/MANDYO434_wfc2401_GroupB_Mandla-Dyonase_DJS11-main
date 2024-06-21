@@ -1,31 +1,31 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "./Header.css";
+
 export default function Header() {
   return (
     <header className="header">
-      <h1 className="d-flex  text-center">
-        <img className="logo-image" src={logo} alt="logo" />
-        Cold- <span className="logo">Cast-Friday</span>
-      </h1>
+      <Link to="/">
+        <h1 className="d-flex text-center">
+          <img className="logo-image" src={logo} alt="logo" />
+          Cold- <span className="logo">Cast-Friday</span>
+        </h1>
+      </Link>
       <ul>
         <li>
           <NavLink
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
-            exact
             to="/"
-            activeClassName="active-link"
+            end
           >
             <i className="fa-solid fa-house"></i>
           </NavLink>
         </li>
         <li>
-          {/* used Navlinks to establish active link styling  */}
           <NavLink
             to="/episodes"
-            activeClassName="active-link"
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
@@ -39,34 +39,30 @@ export default function Header() {
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
-            activeClassName="active-link"
           >
             Favourites
           </NavLink>
         </li>
-
         <li>
           <NavLink
             to="/contact"
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
-            activeClassName="active-link"
           >
             <i className="fa-solid fa-phone"></i>
           </NavLink>
         </li>
-
         <li>
           <NavLink
             to="/search"
             className={({ isActive }) =>
               isActive ? "active-link" : "text-white"
             }
-            activeClassName="active-link"
-          ></NavLink>
+          >
+            <i className="fa-solid fa-search"></i>
+          </NavLink>
         </li>
-
         <li>
           <NavLink
             to="/settings"
@@ -77,23 +73,29 @@ export default function Header() {
             <i className="fa-solid fa-gear"></i>
           </NavLink>
         </li>
-
         <li className="text-white">
-          <NavLink to="/genres" activeClassName="active-link">
+          <NavLink
+            to="/genres"
+            className={({ isActive }) =>
+              isActive ? "active-link" : "text-white"
+            }
+          >
             View By Genres
           </NavLink>
         </li>
       </ul>
 
-      <div className="d-flex  justify-content-end align-items-center">
-        <NavLink to="/log-in" activeClassName="active-link">
+      <div className="d-flex justify-content-end align-items-center">
+        <NavLink
+          to="/log-in"
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+        >
           <i className="fa-solid fa-right-to-bracket"></i>
         </NavLink>
         <NavLink
-          className="btn btn-outline-dark signup "
+          className="btn btn-outline-dark signup"
           style={{ color: "white" }}
           to="/sign-up"
-          activeClassName="active-link"
         >
           Sign Up
           <i className="fa-solid fa-user ml-2"></i>
@@ -102,10 +104,3 @@ export default function Header() {
     </header>
   );
 }
-
-/**
- * @returns {JSX.Element}
- *
- *
- *
- */
