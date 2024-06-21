@@ -12,6 +12,10 @@ export default function ShowDetail() {
     return JSON.parse(localStorage.getItem("favorites")) || [];
   });
 
+  const [checkedEpisodes, setCheckedEpisodes] = useState(() => {
+    return JSON.parse(localStorage.getItem("checkedEpisodes")) || {};
+  });
+
   useEffect(() => {
     const fetchShowDetails = async () => {
       try {
@@ -37,8 +41,19 @@ export default function ShowDetail() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    localStorage.setItem("checkedEpisodes", JSON.stringify(checkedEpisodes));
+  }, [checkedEpisodes]);
+
   const handleSeasonSelect = (seasonNumber) => {
     setSelectedSeason(seasonNumber === selectedSeason ? null : seasonNumber);
+  };
+
+  const handleCheckFavorites = (episodeId) => {
+    setCheckedEpisodes((prevCheckedEpisodes) => ({
+      ...prevCheckedEpisodes,
+      [episodeId]: !prevCheckedEpisodes[episodeId],
+    }));
   };
 
   const addToFavorites = (episodeId) => {
@@ -132,12 +147,20 @@ export default function ShowDetail() {
                     </audio>
 
                     <div>
-                      <button
-                        onClick={() => addToFavorites(episode.id)}
-                        className="btn btn-primary"
-                      >
-                        Add to Favorites
-                      </button>
+                      <div className="d-flex gap-3">
+                        <button
+                          onClick={() => addToFavorites(episode.id)}
+                          className="btn btn-primary"
+                        >
+                          Add to Favorites
+                        </button>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          checked={checkedEpisodes[episode.id] || false}
+                          onChange={() => handleCheckFavorites(episode.id)}
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
