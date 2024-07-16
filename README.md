@@ -2,7 +2,7 @@
 [DJS11] Starter Instructions for the Final Portfolio Piece Submission 🚀
 
 
-<!-- omit in toc -->
+
 **Table of Contents**
 
 - [🤖 Technology](#-technology)
